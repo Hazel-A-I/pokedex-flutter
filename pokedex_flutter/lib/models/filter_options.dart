@@ -1,7 +1,7 @@
 class FilterOptions {
-  final String? type;
-  final String? move;
-  final String? ability;
+   String? type;
+   String? move;
+   String? ability;
 
   FilterOptions({
     this.type,

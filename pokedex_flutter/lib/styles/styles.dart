@@ -7,5 +7,9 @@ class AppStyles {
     fontFamily: 'Georgia', 
   );
 
-
+  static final TextStyle vintageTitleStyle = TextStyle(
+    color: Colors.brown,
+    fontSize: 32.0,
+    fontFamily: 'Proxima Nova',
+  );
 }
