@@ -26,8 +26,8 @@ class PokeProvider extends ChangeNotifier {
 
   List<PokemonData> get allPokemons => _allPokemons;
   List<PokemonData> get filteredPokemons => _filteredPokemons;
-  List<String> getPokeSuggestions(String query) {
-    return SuggestionService.getPokeSuggestions(_allPokemons, query);
+  List<String> pokeSearch(String query) {
+    return SuggestionService.getPokeSuggestions(allPokemons, query);
   }
 
 }

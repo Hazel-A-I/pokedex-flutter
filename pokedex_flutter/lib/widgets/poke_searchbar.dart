@@ -45,7 +45,7 @@ class PokeSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    List<String> pokeSuggestions = Provider.of(context).getPokeSuggestions(query);
+    List<String> pokeSuggestions = Provider.of<PokeProvider>(context).pokeSearch(query);
 
     return ListView.builder(
       itemCount: 7,
