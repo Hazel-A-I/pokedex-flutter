@@ -8,24 +8,20 @@ class PokeSearchBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Container();
   }
 }
 
 class PokeSearchDelegate extends SearchDelegate {
-
-
   @override
   List<Widget>? buildActions(BuildContext context) => [
-
         if (query.isNotEmpty)
-        IconButton(
-          icon: Icon(Icons.clear),
-          onPressed: () {
-            query = '';
-          },
-        ),
+          IconButton(
+            icon: Icon(Icons.clear),
+            onPressed: () {
+              query = '';
+            },
+          ),
       ];
 
   @override
@@ -39,28 +35,40 @@ class PokeSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    return Text('teste');
+    List<String> pokeSuggestions =
+        Provider.of<PokeProvider>(context).pokeSearch(query);
 
+    return ListView.builder(
+        itemCount: pokeSuggestions.length,
+        itemBuilder: (context, index) {
+          final pokeSuggestion = pokeSuggestions[index];
+          return ListTile(
+            title: Text(pokeSuggestion),
+            onTap: () {
+              query = pokeSuggestion;
+            },
+          );
+        });
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    List<String> pokeSuggestions = Provider.of<PokeProvider>(context).pokeSearch(query);
+        List<String> pokeSuggestions = Provider.of<PokeProvider>(context).pokeSearch(query);
+
+    
 
     return ListView.builder(
-      itemCount: 7,
-      itemBuilder: (context, index) {
-        final pokeSuggestion = pokeSuggestions[index];
-            return ListTile(
-              title: Text(pokeSuggestion),
-              onTap: () {
-                query = pokeSuggestion;
-              },
-            );
-         }
-    );
-    }
-  
-    
-  
+        itemCount: pokeSuggestions.length,
+        itemBuilder: (context, index) {
+          final pokeSuggestion = pokeSuggestions[index];
+          return ListTile(
+            title: Text(pokeSuggestion),
+            onTap: () {
+              query = pokeSuggestion;
+            },
+          );
+        },);
+      // }
+    // );
+  }
 }

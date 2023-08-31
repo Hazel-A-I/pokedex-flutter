@@ -19,11 +19,21 @@ class PokemonData {
   PokemonData.fromJson(JsonMap json) {
 
     this.name = json["name"];
-    this.types = List<String>.from(json["types"].forEach((type) => type.name.toString()));
-    this.moves = List<String>.from(json["moves"].forEach((move) => move.name.toString()));
-    this.abilities = List<String>.from(json["abilities"].forEach((ability) => ability.name.toString()));
-    this.imageURL = json["sprites"]["other"]["official-artwork"]["front-default"];
+     if (json["types"] != null)
+      this.types = List<String>.from(
+          json["types"].forEach((type) => type.name.toString()));
 
+    if (json["moves"] != null)
+      this.moves = List<String>.from(
+          json["moves"].forEach((move) => move.name.toString()));
+
+    if (json["abilities"] != null)
+      this.abilities = List<String>.from(
+          json["abilities"].forEach((ability) => ability.name.toString()));
+
+    if (json["sprites"] != null)
+      this.imageURL =
+          json["sprites"]["other"]["official-artwork"]["front-default"];
   }
 }
 

@@ -6,10 +6,7 @@ import 'dart:convert';
 
 class PokeRepo {
   static Future<List<PokemonData>> getPokemon() async {
-    Uri uri = Uri.https(
-      "pokeapi.co",
-      "/api/v2/pokemon",
-    );
+    Uri uri = Uri.https("pokeapi.co", "/api/v2/pokemon", {"limit": "1281"});
 
     http.Response response = await http.get(uri);
 
