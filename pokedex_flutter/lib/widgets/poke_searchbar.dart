@@ -53,22 +53,23 @@ class PokeSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-        List<String> pokeSuggestions = Provider.of<PokeProvider>(context).pokeSearch(query);
-
-    
+    List<String> pokeSuggestions =
+        Provider.of<PokeProvider>(context).pokeSearch(query);
 
     return ListView.builder(
-        itemCount: pokeSuggestions.length,
-        itemBuilder: (context, index) {
-          final pokeSuggestion = pokeSuggestions[index];
-          return ListTile(
-            title: Text(pokeSuggestion),
-            onTap: () {
-              query = pokeSuggestion;
-            },
-          );
-        },);
-      // }
+      itemCount: pokeSuggestions.length,
+      itemBuilder: (context, index) {
+        final pokeSuggestion = pokeSuggestions[index];
+        return ListTile(
+          title: Text(pokeSuggestion),
+          onTap: () {
+            query =
+                pokeSuggestion; // trocar pra uma função que envie para o Details. --------------------------------
+          },
+        );
+      },
+    );
+    // }
     // );
   }
 }

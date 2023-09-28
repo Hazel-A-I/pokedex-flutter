@@ -29,5 +29,4 @@ class PokeProvider extends ChangeNotifier {
   List<String> pokeSearch(String query) {
     return SuggestionService.getPokeSuggestions(allPokemons, query);
   }
-
 }

@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:pokedex_flutter/consts/consts.dart';
 
 class PokemonData {
@@ -17,9 +16,8 @@ class PokemonData {
   });
 
   PokemonData.fromJson(JsonMap json) {
-
     this.name = json["name"];
-     if (json["types"] != null)
+    if (json["types"] != null)
       this.types = List<String>.from(
           json["types"].forEach((type) => type.name.toString()));
 
@@ -36,5 +34,3 @@ class PokemonData {
           json["sprites"]["other"]["official-artwork"]["front-default"];
   }
 }
-
-
