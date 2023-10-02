@@ -19,35 +19,27 @@ class PokeGrid extends StatelessWidget {
         } else if (snapshot.hasError) {
           return Text('Error: ${snapshot.error}');
         } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-          return Text('No Pokémon data available.');
+          return Center(
+              child: Container(
+                  width: 100, height: 100, child: CircularProgressIndicator()));
         } else {
           final List<PokemonData> pokemons = snapshot.data!;
           return GridView.builder(
             gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-              maxCrossAxisExtent: 160,
+              maxCrossAxisExtent: 180,
               mainAxisSpacing: 10.0,
               crossAxisSpacing: 10.0,
             ),
             itemCount: pokemons.length,
             itemBuilder: (context, index) {
               PokemonData pokemonData = pokemons[index];
-              return FutureBuilder<CardModel?>(
-                future: createCardModel(context, pokemonData),
-                builder: (context, cardSnapshot) {
-                  if (cardSnapshot.connectionState == ConnectionState.waiting) {
-                    return CircularProgressIndicator();
-                  } else if (cardSnapshot.hasError) {
-                    return Text('Error: ${cardSnapshot.error}');
-                  } else if (!cardSnapshot.hasData) {
-                    return Text('No CardModel data available.');
-                  } else {
-                    CardModel cardModel = cardSnapshot.data!;
-                    return PokeCard(
-                      card: cardModel,
-                      onPressed: function,
-                    );
-                  }
-                },
+              CardModel cardModel = CardModel(
+                  pokemonName: pokemonData.name,
+                  imageURL: pokemonData.imageURL,
+                  pokemonTypes: pokemonData.types);
+              return PokeCard(
+                card: cardModel, // mobx please.
+                onPressed: function,
               );
             },
           );
@@ -59,22 +51,4 @@ class PokeGrid extends StatelessWidget {
 
 Future<List<PokemonData>> fetchPokemonData(BuildContext context) async {
   return Provider.of<PokeProvider>(context).allPokemons;
-}
-
-Future<CardModel?> createCardModel(
-    BuildContext context, PokemonData pokemonData) async {
-  String? pokemonName = pokemonData.name;
-  String? imageURL = pokemonData.imageURL;
-  List<String>? pokemonTypes = pokemonData.types;
-
-  if (pokemonName.isNotEmpty &&
-      imageURL.isNotEmpty &&
-      pokemonTypes.isNotEmpty) {
-    return CardModel(
-      pokemonName: pokemonName,
-      imageURL: imageURL,
-      pokemonTypes: pokemonTypes,
-    );
-  }
-  return null;
 }

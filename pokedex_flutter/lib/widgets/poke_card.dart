@@ -1,43 +1,3 @@
-// import 'package:flutter/material.dart';
-// import 'package:pokedex_flutter/models/card_model.dart';
-// import 'package:pokedex_flutter/models/poke_model.dart';
-
-// class PokeCard extends StatelessWidget {
-//   final CardModel card;
-//   const PokeCard({super.key, required this.card});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Card(
-//       elevation: 2.0,
-//       child: Column(
-//         children: [
-//           Image.network(card.imageURL),
-//           Text(card.pokemonName, style: TextStyle(fontWeight: FontWeight.bold)),
-//           Row(
-//             mainAxisAlignment: MainAxisAlignment.center,
-//             children: card.pokemonTypes.map((type) {
-//               return Container(
-//                 margin: EdgeInsets.symmetric(horizontal: 4.0),
-//                 padding: EdgeInsets.all(4.0),
-//                 decoration: BoxDecoration(
-//                   color: Colors
-//                       .blue, // type color check --------------------------------
-//                   borderRadius: BorderRadius.circular(10.0),
-//                 ),
-//                 child: Text(
-//                   type,
-//                   style: TextStyle(color: Colors.white),
-//                 ),
-//               );
-//             }).toList(),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
-
 import 'package:flutter/material.dart';
 import 'package:pokedex_flutter/models/card_model.dart';
 import 'package:pokedex_flutter/models/poke_model.dart';
@@ -53,6 +13,7 @@ class PokeCard extends StatefulWidget {
 }
 
 class _PokeCardState extends State<PokeCard> {
+  // apply mobx, please.
   bool isHovered = false;
   bool isPressed = false;
 
@@ -89,14 +50,18 @@ class _PokeCardState extends State<PokeCard> {
             color: Colors.pink,
             child: Column(
               children: [
-                Image.network(widget.card.imageURL),
+                SizedBox(height: 10),
+                Container(
+                    child: Image.network(widget.card.imageURL, height: 60),
+                    color: Colors.black12),
                 Text(widget.card.pokemonName,
                     style: TextStyle(fontWeight: FontWeight.bold)),
+                SizedBox(height: 10),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: widget.card.pokemonTypes.map((type) {
                     return Container(
-                      margin: EdgeInsets.symmetric(horizontal: 10.0),
+                      margin: EdgeInsets.symmetric(horizontal: 4.0),
                       padding: EdgeInsets.all(4.0),
                       decoration: BoxDecoration(
                         color: Colors.blue,
@@ -104,7 +69,7 @@ class _PokeCardState extends State<PokeCard> {
                       ),
                       child: Text(
                         type,
-                        style: TextStyle(color: Colors.white),
+                        style: TextStyle(color: Colors.white, fontSize: 10),
                       ),
                     );
                   }).toList(),

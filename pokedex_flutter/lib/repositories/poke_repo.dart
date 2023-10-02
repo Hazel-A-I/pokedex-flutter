@@ -6,19 +6,25 @@ import 'dart:convert';
 
 class PokeRepo {
   static Future<List<PokemonData>> getPokemon() async {
-    Uri uri = Uri.https("pokeapi.co", "/api/v2/pokemon", {"limit": "1281"});
-
-    http.Response response = await http.get(uri);
-
-    var resObj = json.decode(response.body);
-
     List<PokemonData> pokeList = [];
+    try {
+      Uri uri = Uri.https("pokeapi.co", "/api/v2/pokemon", {"limit": "1281"});
+      http.Response response = await http.get(uri);
+      JsonMap resObj = jsonDecode(response.body);
 
-    for (var pokemon in (resObj["results"] as List<dynamic>)) {
-      pokeList.add(PokemonData.fromJson(pokemon as JsonMap));
+      for (var pokemon in (resObj["results"] as List<dynamic>)) {
+        final String instance = pokemon['name'];
+        Uri innerUri = Uri.https("pokeapi.co", "/api/v2/pokemon/$instance");
+        http.Response innerResponse = await http.get(innerUri);
+        JsonMap innerResObj = jsonDecode(innerResponse.body);
+        pokeList.add(PokemonData.fromJson(innerResObj));
+      }
+
+      return pokeList;
+    } catch (e) {
+      print(e);
+      return pokeList;
     }
-
-    return pokeList;
   }
 
   static Future<List<PokemonData>> filterPokemons(FilterOptions options) async {
