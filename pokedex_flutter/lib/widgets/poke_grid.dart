@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:pokedex_flutter/models/card_model.dart';
 import 'package:pokedex_flutter/models/poke_model.dart';
 import 'package:pokedex_flutter/providers/poke_provider.dart';
+import 'package:pokedex_flutter/stores/poke_card_store.dart';
 import 'package:pokedex_flutter/widgets/poke_card.dart';
 import 'package:provider/provider.dart';
+import 'package:pokedex_flutter/delegates/custom_grid_delegate.dart';
 
 class PokeGrid extends StatelessWidget {
   final VoidCallback function;
@@ -24,22 +26,29 @@ class PokeGrid extends StatelessWidget {
                   width: 100, height: 100, child: CircularProgressIndicator()));
         } else {
           final List<PokemonData> pokemons = snapshot.data!;
+          List<PokeCardStore> pokeCardStores = [];
+          for (PokemonData pokemon in pokemons) {
+            pokeCardStores.add(PokeCardStore());
+          }
           return GridView.builder(
-            gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-              maxCrossAxisExtent: 180,
-              mainAxisSpacing: 10.0,
-              crossAxisSpacing: 10.0,
+            gridDelegate: SliverGridDelegateWithMinAndMaxCrossAxisExtent(
+              minCrossAxisExtent: 90,
+              maxCrossAxisExtent: 130,
             ),
             itemCount: pokemons.length,
             itemBuilder: (context, index) {
+              final gridTileSize = MediaQuery.of(context).size.width / 2;
+              print(gridTileSize);
               PokemonData pokemonData = pokemons[index];
               CardModel cardModel = CardModel(
                   pokemonName: pokemonData.name,
                   imageURL: pokemonData.imageURL,
                   pokemonTypes: pokemonData.types);
               return PokeCard(
-                card: cardModel, // mobx please.
+                card: cardModel,
                 onPressed: function,
+                pokeCardStore: pokeCardStores[index],
+                gridTileSize: gridTileSize,
               );
             },
           );

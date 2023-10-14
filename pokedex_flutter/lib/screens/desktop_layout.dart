@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pokedex_flutter/models/card_model.dart';
-import 'package:pokedex_flutter/widgets/poke_card.dart';
 import 'package:pokedex_flutter/widgets/poke_drawer.dart';
 import 'package:pokedex_flutter/widgets/poke_grid.dart';
 import 'package:pokedex_flutter/widgets/poke_searchbar.dart';
@@ -31,15 +29,7 @@ class DesktopLayout extends StatelessWidget {
             function: () {},
           ),
         ),
-        Expanded(
-            flex: 2,
-            child: PokeCard(
-              card: CardModel(
-                  pokemonName: "bubasarro",
-                  imageURL: "https://pbs.twimg.com/media/Dl8nOCfXoAAt6E1.png",
-                  pokemonTypes: ["grass"]),
-              onPressed: () {},
-            )),
+        Expanded(flex: 2, child: Container()),
       ]),
     );
   }

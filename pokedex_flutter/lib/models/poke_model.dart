@@ -65,7 +65,8 @@ class PokemonData {
               ["front_default"]
           .toString();
     } else {
-      this.imageURL = "https://pbs.twimg.com/media/Dl8nOCfXoAAt6E1.png";
+      this.imageURL =
+          "https://cdn2.iconfinder.com/data/icons/pokemon-filledoutline/64/pokeball-people-pokemon-nintendo-video-game-gaming-gartoon-ball-512.png";
     }
   }
 }
